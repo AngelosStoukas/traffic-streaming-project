@@ -1,0 +1,12 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# UXSIM output files
+out/
+
+# Spark / Docker runtime
+*.log
