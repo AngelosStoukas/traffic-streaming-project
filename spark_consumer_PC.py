@@ -7,17 +7,17 @@ from pyspark.sql.types import StructType, StringType, DoubleType, IntegerType
 
 # 1. Ορισμός του Schema
 ## vehicles_to_pandas returns a pd.DataFrame:
-#             A DataFrame containing the travel logs of vehicles, with the columns:
+# A DataFrame containing the travel logs of vehicles, with the columns:
 #
-#             - 'name': the name of the vehicle (platoon).
-#             - 'dn': the platoon size.
-#             - 'orig': the origin node of the vehicle's trip.
-#             - 'dest': the destination node of the vehicle's trip.
-#             - 't': the timestep.
-#             - 'link': the link the vehicle is on (or relevant status).
-#             - 'x': the position of the vehicle on the link.
-#             - 's': the spacing of the vehicle.
-#             - 'v': the speed of the vehicle.
+# 'name': the name of the vehicle (platoon).
+# 'dn': the platoon size.
+# 'orig': the origin node of the vehicle's trip.
+# 'dest': the destination node of the vehicle's trip.
+# 't': the timestep.
+# 'link': the link the vehicle is on (or relevant status).
+# 'x': the position of the vehicle on the link.
+# 's': the spacing of the vehicle.
+# 'v': the speed of the vehicle.
 schema = StructType() \
     .add("name", StringType()) \
     .add("dn", IntegerType()) \
@@ -42,7 +42,6 @@ spark = (
 spark.sparkContext.setLogLevel("WARN")
 
 # 3. Σύνδεση στον Redpanda (Kafka-compatible)
-# Μπορείτε να αντικαταστήσετε το 'uxsim' με όνομα του topic της επιλογής σας
 df = (
     spark.readStream
     .format("kafka")
@@ -53,7 +52,7 @@ df = (
 )
 
 # 4. Parsing του JSON και Μετασχηματισμός
-# Χρησιμοποιείστε "cast" για να μετατρεψετε τις raw binary τιμες σε ευαναγνωστο JSON string
+# Χρησιμοποιείται "cast" για να μετατραπούν οι raw binary τιμες σε ευαναγνωστο JSON string
 # Εφαρμοστε το schema στο string, δημιουργώντας ενα μοναδικό struct με την ονομασία data
 # Καθε key το JSON (name, orig, dest, etc.) μετατρεπεται σε ξεχωριστη στήλη στο DataFrame.
 parsed = (
